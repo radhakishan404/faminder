@@ -29,9 +29,9 @@ export const AddEvents = ({ navigate, show, close, initialValues, globalLoading,
         try {
             let res = null;
             if (values._id) {
-                res = await api.post("/events", values);
-            } else {
                 res = await api.put("/events", values);
+            } else {
+                res = await api.post("/events", values);
             }
 
             ShowToast(res.message)
