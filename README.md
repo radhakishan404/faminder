@@ -1,79 +1,53 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Faminder - React Native Project
 
-# Getting Started
+Faminder is a React Native project designed to provide users with a seamless experience in managing their schedule. The application includes essential features such as a login page, register page, home page, and an add event page. Redux is utilized for temporary authentication storage.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Project Structure
 
-## Step 1: Start the Metro Server
+The project is organized into distinct directories to facilitate clarity and maintainability:
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- **components:** This directory holds common and static components crucial for various parts of the application.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **containers:** Three primary files make up this directory:
+  1. **index.js:** Combines container components, connects to the store, and passes data as props to the container.
+  2. **container.js:** Contains the core logic and code for specific functionalities.
+  3. **store.js:** Manages the Redux state data, facilitating communication with the container components.
+
+- **helpers:** Essential helper functions are stored in this directory, providing utility across the application.
+
+- **redux:** Handles state management using Redux, with separate folders for authentication (`sessionReducer`) and other state-related functionalities.
+
+- **routes:** This directory consists of four files:
+  1. **index.js:** Define public and private routes based on auth.
+  1. **PublicNavigation.js:** Defines routes accessible to all users.
+  2. **PrivateNavigation.js:** Specifies routes accessible only after authentication.
+  2. **withNavigate.js:** Help us to pass the data of useNavigation as props to main container.
+
+## Getting Started
+
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Install dependencies using `npm install`.
+4. Explore the `components` directory for reusable UI elements.
+5. Review the `containers` directory for the primary logic and state management of different sections.
+6. Utilize the `helpers` directory for additional utility functions.
+7. Inspect the `redux` directory for authentication and other state-related management.
+8. Explore the `routes` directory to understand the available navigation paths.
+
+## Running the Application
+
+Ensure you have the required dependencies and then run:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+npx react-native start
 ```
 
-## Step 2: Start your Application
+You may face some issue when running on different different version, please reach out to me if you face any issue.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Contributing
 
-### For Android
+Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests. Follow the established coding standards and guidelines for a smooth collaboration.
 
-```bash
-# using npm
-npm run android
+## License
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the [MIT License](LICENSE).
