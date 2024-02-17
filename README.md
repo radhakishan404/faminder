@@ -2,6 +2,10 @@
 
 Faminder is a React Native project designed to provide users with a seamless experience in managing their schedule. The application includes essential features such as a login page, register page, home page, and an add event page. Redux is utilized for temporary authentication storage.
 
+## Overview:
+
+Currently this app have default email and password for login, you can register your account and login.
+
 ## Project Structure
 
 The project is organized into distinct directories to facilitate clarity and maintainability:
