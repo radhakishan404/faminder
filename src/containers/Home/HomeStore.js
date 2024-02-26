@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setGlobalLoading } from "../../redux/common/commonSlice";
 import { changeInitialState, handlePaginationState } from "../../redux/events/eventsSlice";
+import { logout } from "../../redux/sessionReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -18,6 +19,7 @@ const mapDispatch = {
     setGlobalLoading,
     changeInitialState,
     handlePaginationState,
+    logout,
 };
 
 const mapDispatchToProps = (dispatch) =>

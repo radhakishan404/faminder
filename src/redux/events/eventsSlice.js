@@ -6,6 +6,7 @@ const formInitialValue = {
     type: "",
     priority: "Low",
     dueDate: "",
+    time: "",
     completed: "false"
 }
 

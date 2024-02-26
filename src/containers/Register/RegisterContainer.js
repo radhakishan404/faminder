@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     StyleSheet,
     View,
     Dimensions,
-    TouchableOpacity
 } from "react-native";
 import CommonButton from "../../components/common/CommonButton";
 import sx from "../../helpers/style";
@@ -12,7 +11,7 @@ import { Logo } from "../../components/common/Logo";
 import { RegisterForm } from "../../components/forms/RegisterForm";
 
 
-const RegisterContainer = ({ navigate, setAuthData, isAuth, globalLoading, setGlobalLoading }) => {
+const RegisterContainer = ({ navigate, isAuth, globalLoading, setGlobalLoading }) => {
     const screenWidth = Dimensions.get('window').width;
 
     return (
@@ -64,64 +63,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 0,
         bottom: 0
-    },
-    logo: {
-        width: 90,
-        height: 80,
-        resizeMode: 'contain',
-    },
-    inputContainer: {
-        width: '100%',
-        marginTop: 20,
-    },
-    flexJustifyContainer: {
-        flexDirection: 'row',
-        width: "100%",
-        alignItems: 'center',
-        justifyContent: "space-between",
-    },
-    checkboxContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: "space-between",
-        marginBottom: 20,
-    },
-    checkboxStyle: {
-        backgroundColor: "#74BD84",
-        borderWidth: 1,
-        borderColor: "gray"
-    },
-    registerButton: {
-        width: '100%',
-        backgroundColor: 'black',
-        paddingVertical: 15,
-        alignItems: 'center',
-        borderRadius: 10,
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    registerButtonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-        fontFamily: "KotoriRose-Regular"
-    },
-    termsContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-    },
-    termsText: {
-        color: "#000",
-        textAlign: "center",
-        fontFamily: "KotoriRose-Regular",
-        fontSize: 14,
-        fontWeight: 700,
-    },
-    termsLink: {
-        fontSize: 14,
-        color: 'blue',
-        textDecorationLine: 'underline',
     },
 });
 

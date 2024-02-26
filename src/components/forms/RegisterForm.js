@@ -4,7 +4,8 @@ import { Fragment } from "react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import CommonInput from "../common/CommonInput";
-import { axios } from "../../helpers/axios";
+import api from "../../helpers/axios";
+import { ShowToast } from "../../helpers/utils";
 
 
 const validateForm = yup.object().shape({
@@ -23,17 +24,9 @@ export const RegisterForm = ({ navigate, loading, setLoading }) => {
     const onFormSubmit = async (values) => {
         try {
             setLoading(true);
-            // await signUpAndSendVerificationEmail(values);
-            const reg_res = await axios.post("/auth/register", values);
-
-            if (reg_res?.success) {
-                // authenticate(login_response.result, (res) => {
-                //     if (res) {
-                //         window.location.reload()
-                //     } else {
-                //         this.props.navigate('/noroles')
-                //     }
-                // });
+            const reg_res = await api.post("/auth/register", values);
+            if(reg_res && reg_res.success) {
+                ShowToast("Registration complete please login now.")
             }
             setLoading(false);
             navigate.goBack()
@@ -104,7 +97,7 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         width: '100%',
-        backgroundColor: 'black',
+        backgroundColor: '#010c80',
         paddingVertical: 15,
         alignItems: 'center',
         borderRadius: 10,

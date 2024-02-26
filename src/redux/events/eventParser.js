@@ -1,55 +1,53 @@
-export const parseEventList = (data) => {
+export const parseEventList = (data, currentDate) => {
     try {
 
-        const sortedArray = data.result.sort((a, b) => {
-            const priorityOrder = {
-                'High': 1,
-                'Medium': 2,
-                'Low': 3,
-            };
+        // Calculate the start of the current week (Sunday)
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
 
-            const priorityComparison = priorityOrder[a.priority] - priorityOrder[b.priority];
+        // Calculate the end of the current week (Saturday)
+        const endOfWeek = new Date(currentDate);
+        endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
 
-            if (priorityComparison !== 0) {
-                return priorityComparison;
-            }
+        const resultObject = {};
 
-            const [hoursa, minutesa] = a?.time.split(':');
-            const Adate = new Date(2000, 0, 1, hoursa, minutesa);
+        // Generate an array representing the days of the current week
+        const currentWeekDays = [];
+        for (let i = new Date(startOfWeek); i <= endOfWeek; i.setDate(i.getDate() + 1)) {
+            currentWeekDays.push(new Date(i).toISOString().split('T')[0]);
+        }
 
-            const [hoursb, minutesb] = b?.time.split(':');
-            const Bdate = new Date(2000, 0, 1, hoursb, minutesb);
-
-            return new Date(Adate) - new Date(Bdate);
+        // Initialize the resultObject with empty arrays for each day
+        currentWeekDays.forEach(day => {
+            resultObject[day] = [];
         });
 
-        // Group items by priority
-        const groupedArray = sortedArray.reduce((result, item) => {
-            const priorityTitle = item.priority;
-            const group = result.find(group => group.title === priorityTitle);
+        // Fill in the data for each task
+        data.result.forEach(task => {
+            const dueDate = task.dueDate.split('T')[0];
 
-            let payloadToPush = {
-                _id: item._id,
-                title: item.title,
-                description: item.description,
-                type: item.type,
-                priority: item.priority,
-                dueDate: item.dueDate,
-                time: item.time,
-                completed: item.completed
+            if (resultObject[dueDate]) {
+                const height = task.title.length + task.description.length;
+
+                resultObject[dueDate].push({
+                    day: dueDate,
+                    height: height,
+                    name: task.title,
+                    item: {
+                        _id: task._id,
+                        title: task.title,
+                        description: task.description,
+                        type: task.type,
+                        priority: task.priority,
+                        dueDate: task.dueDate,
+                        time: task.time,
+                        completed: task.completed.toString()
+                    }
+                });
             }
+        });
 
-            if (group) {
-                group.items.push(payloadToPush);
-            } else {
-                result.push({ title: priorityTitle, items: [payloadToPush] });
-            }
-
-            return result;
-        }, []);
-
-        data.result = groupedArray
-        return data;
+        return resultObject;
     } catch (e) {
         console.log(e.message);
     }

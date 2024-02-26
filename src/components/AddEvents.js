@@ -13,14 +13,13 @@ import { ShowToast } from "../helpers/utils";
 import api from "../helpers/axios";
 import { format } from "date-fns";
 
-const timeValidationRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 const validateEditProfileForm = yup.object().shape({
     title: yup.string().required("Required"),
     description: yup.string(),
     type: yup.string().required("Required"),
     priority: yup.string().required("Required"),
     dueDate: yup.string().required("Required"),
-    time: yup.string().required().matches(timeValidationRegex, 'Invalid time format'),
+    time: yup.string(),
 });
 
 export const AddEvents = ({ navigate, show, close, initialValues, globalLoading, refetch }) => {
@@ -83,7 +82,7 @@ export const AddEvents = ({ navigate, show, close, initialValues, globalLoading,
         >
             <View style={styles.container}>
                 <SafeAreaProvider>
-                    <HeaderCommon title={"Add Event"} icon={"chevron-back-outline"} close={close} right={"trash-outline"} rightAction={handleDelete} />
+                    <HeaderCommon title={initialValues?._id ? "Edit Event" : "Add Event"} icon={"chevron-back-outline"} close={close} right={initialValues?._id ? "trash-outline" : null} rightAction={initialValues?._id ? handleDelete : null} />
                     <View style={styles.modalContent}>
                         <Formik
                             initialValues={initialValues}
@@ -98,7 +97,6 @@ export const AddEvents = ({ navigate, show, close, initialValues, globalLoading,
                                 errors,
                             }) => (
                                 <Fragment>
-                                    {console.log(errors, "errors")}
                                     <View style={styles.box}>
                                         <ScrollView>
                                             <CommonInput
@@ -116,6 +114,7 @@ export const AddEvents = ({ navigate, show, close, initialValues, globalLoading,
                                                     <View style={[{ width: "48%" }]}>
                                                         <DatePicker
                                                             mode="flat"
+                                                            type="date"
                                                             label="Date"
                                                             onChange={(val) => setFieldValue("dueDate", val)}
                                                             value={values?.dueDate ? format(new Date(values?.dueDate), "yyyy-MM-dd") : null}
@@ -126,18 +125,16 @@ export const AddEvents = ({ navigate, show, close, initialValues, globalLoading,
                                                         />
                                                     </View>
                                                     <View style={[{ width: "48%" }]}>
-                                                        <CommonInput
+                                                        <DatePicker
                                                             mode="flat"
-                                                            label="Time (24 Hr)"
-                                                            placeholder="00:00"
+                                                            type="time"
+                                                            label="Time"
+                                                            onChange={(val) => setFieldValue("time", val)}
                                                             value={values?.time}
-                                                            underlineColorAndroid={'rgba(0,0,0,0)'}
-                                                            autoCapitalize="none" autoCorrect={false}
-                                                            style={[styles.input, styles.inputStyle, { width: "100%" }]}
-                                                            theme={defaultInputTheme}
-                                                            onChangeText={handleChange("time")}
+                                                            inputStyle={[styles.inputStyle]}
                                                             error={errors?.time && Boolean(errors?.time)}
                                                             helperText={errors?.time}
+                                                            navigate={navigate}
                                                         />
                                                     </View>
                                                 </View>
