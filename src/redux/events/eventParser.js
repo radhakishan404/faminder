@@ -23,29 +23,30 @@ export const parseEventList = (data, currentDate) => {
         });
 
         // Fill in the data for each task
-        data.result.forEach(task => {
-            const dueDate = task.dueDate.split('T')[0];
+        if (data.result)
+            data.result.forEach(task => {
+                const dueDate = task.dueDate.split('T')[0];
 
-            if (resultObject[dueDate]) {
-                const height = task.title.length + task.description.length;
+                if (resultObject[dueDate]) {
+                    const height = task.title.length + task.description.length;
 
-                resultObject[dueDate].push({
-                    day: dueDate,
-                    height: height,
-                    name: task.title,
-                    item: {
-                        _id: task._id,
-                        title: task.title,
-                        description: task.description,
-                        type: task.type,
-                        priority: task.priority,
-                        dueDate: task.dueDate,
-                        time: task.time,
-                        completed: task.completed.toString()
-                    }
-                });
-            }
-        });
+                    resultObject[dueDate].push({
+                        day: dueDate,
+                        height: height,
+                        name: task.title,
+                        item: {
+                            _id: task._id,
+                            title: task.title,
+                            description: task.description,
+                            type: task.type,
+                            priority: task.priority,
+                            dueDate: task.dueDate,
+                            time: task.time,
+                            completed: task.completed.toString()
+                        }
+                    });
+                }
+            });
 
         return resultObject;
     } catch (e) {
